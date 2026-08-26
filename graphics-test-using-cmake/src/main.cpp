@@ -12,106 +12,75 @@
 
 using namespace std;
 
+#define WIDTH 1000
+#define HEIGHT 600
+
+void process_input(GLFWwindow* window);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
+
 int main()
 {
-    // -------------------------
-    // Initialize GLFW
-    // -------------------------
-    if (!glfwInit()) {
-        cerr << "Failed to initialize GLFW" << endl;
-        return -1;
-    }
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  
+  GLFWwindow *window =
+      glfwCreateWindow(WIDTH, HEIGHT, "Graphics OpenGL Test", NULL, NULL);
 
-    // -------------------------
-    // OpenGL 3.3 Core Profile
-    // -------------------------
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    // -------------------------
-    // Create Window
-    // -------------------------
-    GLFWwindow* window =
-        glfwCreateWindow(
-            1000,
-            800,
-            "Graphics Test",
-            nullptr,
-            nullptr
-        );
-
-    if (!window) {
-        cerr << "Failed to create GLFW window" << endl;
-        glfwTerminate();
-        return -1;
-    }
-
-    // -------------------------
-    // Make OpenGL Context Current
-    // -------------------------
-    glfwMakeContextCurrent(window);
-
-    // -------------------------
-    // Initialize GLEW
-    // -------------------------
-    glewExperimental = GL_TRUE;
-
-    GLenum err = glewInit();
-
-    if (err != GLEW_OK) {
-
-        cerr << "GLEW warning: "
-             << glewGetErrorString(err)
-             << " (error code " << err << ")"
-             << endl;
-
-        // IMPORTANT:
-        // We DO NOT return here.
-        //
-        // GLEW can report a GLX-related error under
-        // Wayland/EGL even though the OpenGL context
-        // itself is valid.
-    }
-
-    // -------------------------
-    // Print OpenGL Information
-    // -------------------------
-    cout << "OpenGL Version: "
-         << glGetString(GL_VERSION)
-         << endl;
-
-    cout << "OpenGL Renderer: "
-         << glGetString(GL_RENDERER)
-         << endl;
-
-    cout << "OpenGL Vendor: "
-         << glGetString(GL_VENDOR)
-         << endl;
-
-    // -------------------------
-    // Main Loop
-    // -------------------------
-    while (!glfwWindowShouldClose(window)) {
-
-        glClearColor(
-            0.1f,
-            0.2f,
-            0.3f,
-            1.0f
-        );
-
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-
-    // -------------------------
-    // Cleanup
-    // -------------------------
-    glfwDestroyWindow(window);
+  if (window == NULL) {
+    cerr << "Failed to create the GLFW window." << endl;
     glfwTerminate();
+    return -1;
+  }
 
-    return 0;
+  glfwMakeContextCurrent(window);
+
+  GLenum glewError = glewInit();
+
+  if (glewError != GLEW_OK)
+  {
+    cerr << "GLEW error: "
+         << glewGetErrorString(glewError)
+         << endl;
+
+    glfwTerminate();
+    return -1;
+  }
+  
+  if (glewInit() != GLEW_OK) {
+    cerr << "Failed to initialize GLEW" << std::endl;
+    return -1;
+  }
+
+  glViewport(0, 0, WIDTH * 0.8, HEIGHT * 0.8);
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+  while (!glfwWindowShouldClose(window)) {
+    // Input
+    process_input(window);
+
+    // Rendering
+    glClearColor(0.2, 0.5, 0.5, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    // Call Events and Swap Buffers
+    glfwSwapBuffers(window);
+    glfwPollEvents();    
+  }
+
+  glfwTerminate();
+  
+  return 0;
+}
+
+void process_input(GLFWwindow *window) {
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    glfwSetWindowShouldClose(window, true);
+  }
+}
+
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+  glViewport(0, 0, width * 0.8, height * 0.8);
 }
