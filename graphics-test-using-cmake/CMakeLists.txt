@@ -14,11 +14,49 @@ find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
 
-add_executable(GraphicsTest
-    src/main.cpp
+# Making render_window.cpp executable
+add_executable(RenderWindow
+    src/render_window.cpp
 )
 
-target_link_libraries(GraphicsTest
+target_link_libraries(RenderWindow
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+# Making render_triangle.cpp executable
+add_executable(RenderTriangle
+    src/render_triangle.cpp
+)
+
+target_link_libraries(RenderTriangle
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+# Making render_rectangle.cpp executable
+add_executable(RenderRectangle
+    src/render_rectangle.cpp
+)
+
+target_link_libraries(RenderRectangle
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+
+# Exercise-1 (Render 2 Triangles)
+add_executable(Exercise1
+    src/render_2_triangles_exercise.cpp
+)
+
+target_link_libraries(Exercise1
     PRIVATE
         OpenGL::GL
         glfw
