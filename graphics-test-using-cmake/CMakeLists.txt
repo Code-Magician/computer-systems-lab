@@ -74,3 +74,15 @@ target_link_libraries(Exercise2
         glfw
         GLEW::GLEW
 )
+
+# Exercise-3 (Render 2 Triangles with different Fragment Shader such that one triangle's color is yellow)
+add_executable(Exercise3
+    src/render_2_triangles_exercise_3.cpp
+)
+
+target_link_libraries(Exercise3
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
