@@ -62,3 +62,15 @@ target_link_libraries(Exercise1
         glfw
         GLEW::GLEW
 )
+
+# Exercise-2 (Render 2 Triangles with different VAO's and VBO's)
+add_executable(Exercise2
+    src/render_2_triangles_exercise_2.cpp
+)
+
+target_link_libraries(Exercise2
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
