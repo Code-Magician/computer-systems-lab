@@ -36,11 +36,16 @@ out vec4 FragColor;
 void main() {
   FragColor = vec4(1.0, 0.5, 0.2, 1.0);
 })";
-    
 
-int main()
-{
-  glfwInit();
+
+int main() {
+  glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
+
+  if (!glfwInit()) {
+    cerr << "Failed to initialize GLFW" << endl;
+    return -1;
+  }
+  
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -58,18 +63,13 @@ int main()
 
   GLenum glewError = glewInit();
 
-  if (glewError != GLEW_OK)
+  if (glewError != GLEW_OK && glewError != GLEW_ERROR_NO_GLX_DISPLAY)
   {
     cerr << "GLEW error: "
          << glewGetErrorString(glewError)
          << endl;
 
     glfwTerminate();
-    return -1;
-  }
-  
-  if (glewInit() != GLEW_OK) {
-    cerr << "Failed to initialize GLEW" << std::endl;
     return -1;
   }
 

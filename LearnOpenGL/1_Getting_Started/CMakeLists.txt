@@ -86,3 +86,15 @@ target_link_libraries(Exercise3
         glfw
         GLEW::GLEW
 )
+
+# Shaders
+add_executable(VertexColoring
+    src/Shaders/VertexColoring/vertex_coloring.cpp
+)
+
+target_link_libraries(VertexColoring
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
