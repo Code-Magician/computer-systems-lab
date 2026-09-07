@@ -98,3 +98,52 @@ target_link_libraries(VertexColoring
         glfw
         GLEW::GLEW
 )
+
+
+# Shaders Exercise1
+add_executable(ShaderExercise1
+    src/Shaders/Exercise1/shader_exercise1.cpp
+)
+
+target_link_libraries(ShaderExercise1
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+# Shaders Exercise2
+add_executable(ShaderExercise2
+    src/Shaders/Exercise2/shader_exercise2.cpp
+)
+
+target_link_libraries(ShaderExercise2
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+# Shaders Exercise3
+add_executable(ShaderExercise3
+    src/Shaders/Exercise3/shader_exercise3.cpp
+)
+
+target_link_libraries(ShaderExercise3
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+# Textures
+add_executable(Textures
+    src/Textures/TextureLoading/texture_loading.cpp
+)
+
+target_link_libraries(Textures
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
