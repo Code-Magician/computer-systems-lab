@@ -4,6 +4,9 @@
 #include <bits/stdc++.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace std;
 
@@ -99,7 +102,12 @@ public:
     glUniform1i(glGetUniformLocation(ID, name.c_str()), value);  
   }
   void SetFloat(const string &name, float value) {
-    glUniform1f(glGetUniformLocation(ID, name.c_str()), value);  
+    glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+  }
+
+  void SetMatrix4fv(const string &name,GLsizei count, GLboolean isTranspose, glm::mat4 value) {
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), count, isTranspose,
+                       glm::value_ptr(value));
   }
 };
 

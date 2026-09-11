@@ -136,12 +136,36 @@ target_link_libraries(ShaderExercise3
         GLEW::GLEW
 )
 
-# Textures
-add_executable(Textures
+# Textures Loading
+add_executable(TexturesLoading
     src/Textures/TextureLoading/texture_loading.cpp
 )
 
-target_link_libraries(Textures
+target_link_libraries(TexturesLoading
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+# Textures Combined
+add_executable(TexturesCombined
+    src/Textures/TextureCombined/texture_combined.cpp
+)
+
+target_link_libraries(TexturesCombined
+    PRIVATE
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
+)
+
+# Matrix Transformations
+add_executable(Transformations
+    src/Transformations/transformations.cpp
+)
+
+target_link_libraries(Transformations
     PRIVATE
         OpenGL::GL
         glfw
